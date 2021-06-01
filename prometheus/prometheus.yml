@@ -1,0 +1,21 @@
+global:
+  scrape_interval: 10s
+  #  query_log_file: /var/log/prometheus-query.log
+
+scrape_configs:
+#  - job_name: 'prometheus'
+#    scrape_interval: 5s
+#    static_configs:
+#      - targets: ['localhost:9090']
+
+#  - job_name: '3micro.mynet.loc'
+#    scrape_interval: 5s
+#    static_configs:
+#      - targets: ['192.168.234.162:9100']
+
+  - job_name: 'geth'
+    scrape_interval: 5s
+    metrics_path: /debug/metrics/prometheus
+    static_configs:
+            #      - targets: ['192.168.234.162:6060']
+      - targets: ['192.168.234.18:6060']
