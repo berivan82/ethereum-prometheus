@@ -1,0 +1,33 @@
+version: "3"
+
+volumes:
+  ethereum:
+  prometheus:
+  grafana:
+
+services:
+  ethereum:
+    build: ethereum/
+    volumes:
+      - ethereum:/root/.ethereum
+    ports:
+      - "8545:8545"
+      - "30303:30303"
+      - "6060:6060"
+  prometheus:
+    image: bitnami/prometheus:latest
+    volumes:
+      - prometheus:/opt/bitnami/prometheus/data
+      - ${PWD}/prometheus/prometheus.yml:/opt/bitnami/prometheus/conf/prometheus.yml
+    ports:
+      - "9090:9090" 
+    depends_on:
+      - ethereum
+  grafana:
+    image: grafana/grafana:latest
+    volumes:
+      - grafana:/var/lib/grafana
+    ports:
+      - "3000:3000"
+    depends_on:
+      - prometheus
